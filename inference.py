@@ -113,10 +113,10 @@ def unet_image_from_tiles_blend(learn, in_img, tile_sz=256, scale=4, overlap_pct
     return assembled.astype(np.float32)
 
 # Modify accordingly
-testset_path = '/data/test/PSSR/stats/'+sys.argv[1] 
-os.chdir("test")
+print(sys.argv[1])
+testset_path = sys.argv[1] 
 lr_path = testset_path
-results = testset_path+'/../PSSR-output'
+results = 'PSSR-output'
 test_files = glob.glob(testset_path+"/*.tif")
 if len(test_files) == 0 :
     print('Input folder is empty!') ; sys.exit()
@@ -127,21 +127,18 @@ if os.path.isdir(results):
 os.mkdir(results)
 print('Processing '+str(len(test_files))+' files...')
 
-print(os.listdir('PSSR/models'))
-model_name = testset_path+"/../../models/"+sys.argv[2]
-#model_name = 'PSSR_for_EM_1024'
-print(model_name)
-learn = load_learner('PSSR/models', f'{model_name}')
-#learn = load_learner(model_name)
-#size = int(model_name.split('_')[-1].strip(".pkl"))
+model_name = sys.argv[2]
+learn = load_learner('.', f'{model_name}')
 size = int(sys.argv[3])
 print(f'{model_name} model is being used.')
 
 for fn in test_files:
     print(f'Processing:{Path(fn).stem}')
-    pred_name = str(results+"/"+'{Path(fn).stem}_pred')
-    orig_name = results+"/"+'{Path(fn).stem}_orig.tif'
-    tif_predict_movie_blend_slices(learn, fn, size=size, orig_out=orig_name, pred_out=pred_name )
+    fn = fn.strip(".tif")
+    fna = fn.split("/")[1]
+    pred_name = results+"/"+fna+"_pred"
+    orig_name = str(results)+"/"+fn+"_orig.tif"
+    tif_predict_movie_blend_slices(learn, fn+".tif", size=size, orig_out=orig_name, pred_out=pred_name )
 
 print('All done!')
 
