@@ -1,7 +1,7 @@
-from fastai import *
-from fastai.vision import *
-from fastai.callbacks import *
-from torchvision.models import vgg16_bn
+from fastai import *                                                                                                                                                              
+from fastai.vision import *                                                                                                                                                       
+from fastai.callbacks import *                                                                                                                                                    
+from torchvision.models import vgg16_bn                                                                                                                                           
 import PIL
 import imageio
 import libtiff
@@ -113,11 +113,12 @@ def unet_image_from_tiles_blend(learn, in_img, tile_sz=256, scale=4, overlap_pct
     return assembled.astype(np.float32)
 
 # Modify accordingly
-print(sys.argv[1])
 testset_path = sys.argv[1] 
 lr_path = testset_path
 results = 'PSSR-output'
+print(testset_path)
 test_files = glob.glob(testset_path+"/*.tif")
+print(test_files)
 if len(test_files) == 0 :
     print('Input folder is empty!') ; sys.exit()
 #else :
