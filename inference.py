@@ -1,7 +1,7 @@
-from fastai import *
-from fastai.vision import *
-from fastai.callbacks import *
-from torchvision.models import vgg16_bn
+from fastai import *                                                                                                                                                              
+from fastai.vision import *                                                                                                                                                       
+from fastai.callbacks import *                                                                                                                                                    
+from torchvision.models import vgg16_bn                                                                                                                                           
 import PIL
 import imageio
 import libtiff
